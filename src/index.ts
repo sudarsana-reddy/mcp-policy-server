@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { capabilities } from "./server";
+import { capabilities, startServer } from "./server.js";
 
 /**
  * Minimal MCP server bootstrap.
@@ -18,3 +18,6 @@ if (process.env.TEST_DOCKERFILE) {
     .then(console.log)
     .catch(console.error);
 }
+
+// Start the HTTP server (default port 3000 or override with PORT env)
+startServer();

@@ -1,6 +1,6 @@
-import opa from "@open-policy-agent/opa-wasm";
-import { fetchFile } from "./github";
-import { parseDockerfile } from "./dockerParser";
+import * as opa from "@open-policy-agent/opa-wasm";
+import { fetchFile } from "./github.js";
+import { parseDockerfile } from "./dockerParser.js";
 
 /**
  * Evaluates Docker policies using centrally governed artifacts.
@@ -22,7 +22,7 @@ export async function evaluateDockerPolicy(dockerfile?: string) {
   if (dockerfile) {
     const input = parseDockerfile(dockerfile);
 
-    const policy = await opa.load(regoSource);
+    const policy = await opa.loadPolicy(regoSource);
     const results = policy.evaluate({ input });
 
     violations = results.map((r: any) => r.msg);
