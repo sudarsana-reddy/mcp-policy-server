@@ -1,16 +1,15 @@
-import { getDockerPolicy } from "./policies";
+import { getDockerPolicyConstraints } from "./policies";
 
 export const capabilities = {
   docker_policy: {
-    description: "Returns Docker security constraints",
+    description: "Evaluates Dockerfile against org policies",
     input_schema: {
       type: "object",
       properties: {
-        service_type: { type: "string" }
+        dockerfile: { type: "string" }
       }
     },
-    handler: async () => {
-      return await getDockerPolicy();
-    }
+    handler: async ({ dockerfile }) =>
+      await getDockerPolicyConstraints(dockerfile)
   }
 };
